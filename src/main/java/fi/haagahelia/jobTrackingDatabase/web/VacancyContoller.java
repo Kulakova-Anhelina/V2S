@@ -131,7 +131,7 @@ public class VacancyContoller {
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public String editStudent(@PathVariable("id") Long vacancyId, Model model) {
+	public String editVacancy(@PathVariable("id") Long vacancyId, Model model) {
 		model.addAttribute("vacancy", repository.findById(vacancyId));
 		model.addAttribute("departments", drepository.findAll());
 		model.addAttribute("applicants", arepository.findAll());
