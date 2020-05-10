@@ -1,0 +1,38 @@
+package fi.haagahelia.jobTrackingDatabase;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import fi.haagahelia.jobTrackingDatabase.domain.Visitor;
+import fi.haagahelia.jobTrackingDatabase.domain.UserRepository;
+
+@RunWith(SpringRunner.class)
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class UserRepositoryTest {
+
+	@Autowired
+	private UserRepository urepository;
+
+	@Test
+	public void findByUserName() {
+
+		User users = urepository.findByUsername("user");
+
+		assertThat(users.getRole()).isEqualTo("USER");
+	}
+
+	@Test
+	public void addNewUser() {
+		Visitor user = new Visitor("bge999", "Hello", "TesingtRole");
+		urepository.save(user);
+		assertThat(user.getId()).isNotNull();
+	}
+
+}

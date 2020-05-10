@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+<title>Vacancy list</title>
+<meta>
+</head>
+<body>
+<div>
+	<h1 style="text-align: center; margin: 20px">List of Vacancies</h1>
+	<h3 th:inline="text" style="text-align: center; color: green" >Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+	<div class="col-md-4" style="padding: 20px 0; margin:20px">
+		<form th:action="@{/logout}" method="post">
+			<input 
+			type="submit" value="Sign Out" class="btn btn-outline-info" />
+		</form>
+	</div>
+	<div style="padding: 0 20px">
+		<table class="table table-hover">
+			<thead>
+				<th scope="col">Job Title</th>
+				<th scope="col">Location</th>
+				<th scope="col">Company</th>
+				<th scope="col">Posted Date</th>
+				<th scope="col">Due to date</th>
+				<th scope="col">Duration</th>
+				<th scope="col">Deprtment</th>
+				<th scope="col">Status</th>
+				<th scope="col" sec:authorize="hasAuthority('ADMIN')">Delete</th>
+				<th scope="col" sec:authorize="hasAuthority('ADMIN')">Edit</th>
+			<thead>
+			<tbody>
+				<tr th:each="vacancy : ${vacancies}">
+					<td th:text="${vacancy.title}"></td>
+					<td th:text="${vacancy.location}"></td>
+					<td th:text="${vacancy.company}"></td>
+					<td th:text="${vacancy.postedDate}"></td>
+					<td th:text="${vacancy.lastDate}"></td>
+					<td th:text="${vacancy.duration}"></td>
+					<td th:text="${vacancy.department.name}"></td>
+					<td th:text="${vacancy.applicant.decision}"></td>
+					<td sec:authorize="hasAuthority('ADMIN')"><a
+						th:href="@{/delete/{id}(id=${vacancy.id})}"
+						class="btn btn-outline-danger">Delete</a></td>
+					<td sec:authorize="hasAuthority('ADMIN')"><a
+						th:href="@{/edit/{id}(id=${vacancy.id})}" class="btn btn-outline-primary">Edit</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="/add" class="btn btn-outline-success">Add Vacancy</a>
+	</div>
+</div>
+</body>
+
+
+</html>

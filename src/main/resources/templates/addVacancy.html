@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add student</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>New position</h1>
+		<div class="col-md-4">
+			<form th:object="${vacancy}" th:action="@{/save}" action="#"
+				method="post">
+				<input type="text" th:field="*{title}" class="form-control"
+					placeholder="Job Title" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<input type="text" th:field="*{location}" class="form-control"
+					placeholder="Location" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<input type="text" th:field="*{company}" class="form-control"
+					placeholder="Company" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<input type="text" th:field="*{postedDate}" class="form-control"
+					placeholder="Posted date" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<input type="text" th:field="*{lastDate}" class="form-control"
+					placeholder="Due to" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<input type="text" th:field="*{duration}" class="form-control"
+					placeholder="Duration" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<label for="deplist">Decision</label> <select id="deplist"
+					th:field="*{applicant}" class="form-control">
+					<option th:each="applicant: ${applicants}"
+						th:value="${applicant.decisionid}"
+						th:text="${applicant.decision}"></option>
+				</select> <label for="deplist">Department</label> <select id="deplist"
+					th:field="*{department}" class="form-control">
+					<option th:each="department: ${departments}"
+						th:value="${department.departmentid}" th:text="${department.name}"></option>
+				</select>
+
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<input type="submit" class="btn btn-primary" value="Save"></input>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
